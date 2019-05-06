@@ -1,0 +1,9 @@
+host: 8.8.8.8
+username: root
+password: password
+sites:
+  - src: 1234
+    dst: 1234
+    domains:
+      - example.com
+      - www.example.com

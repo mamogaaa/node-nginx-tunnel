@@ -1,0 +1,13 @@
+{
+  "name": "nftunnel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.4",
+    "nginx-conf": "^1.5.0",
+    "require-yml": "^1.3.2",
+    "reverse-tunnel-ssh": "^1.1.0",
+    "sleep-promise": "^8.0.1"
+  }
+}
