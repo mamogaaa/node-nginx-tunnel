@@ -11,6 +11,12 @@ module.exports = function createNginxConfig(domains, dstPort, dstHost='127.0.0.1
     return new Promise((resolve, reject) => {
         NginxConfFile.create(filename, (err, conf) => {
             if (err) return reject(err)
+
+            // conf.nginx._add('map', '$http_upgrade $connection_upgrade')
+            // console.log(conf.nginx)
+            // conf.nginx['map '].add('default', 'upgrade')
+            // conf.nginx['map '].add(`''`, 'close')
+            conf.nginx._addVerbatimBlock('map $http_upgrade $connection_upgrade', `\ndefault upgrade;\n''      close;\n`)
             
             conf.nginx._add('server')
             conf.nginx.server._add('listen', '80')
@@ -20,6 +26,9 @@ module.exports = function createNginxConfig(domains, dstPort, dstHost='127.0.0.1
             conf.nginx.server.location._add('proxy_pass', `http://${dstHost}:${dstPort}`)
             conf.nginx.server.location._add('proxy_set_header', `Host ${domains[0]}`)
             conf.nginx.server.location._add('proxy_pass_request_headers', 'on')
+            conf.nginx.server.location._add('proxy_set_header', 'Upgrade $http_upgrade')
+            conf.nginx.server.location._add('proxy_set_header', 'Connection $connection_upgrade')
+
 
             conf.flush()
 
