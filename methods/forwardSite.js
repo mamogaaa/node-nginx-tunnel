@@ -9,7 +9,8 @@ module.exports = function forwardSite(site) {
         password: CONFIG.password,
         dstHost: '0.0.0.0',
         dstPort: site.dst || 0,
-        srcPort: site.src || site.dst
+        srcPort: site.src || site.dst,
+        keepaliveInterval: 15
     }, (err, clientConnection) => {})
 
     conn.on('forward-in', async function (port) {
