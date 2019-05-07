@@ -9,8 +9,7 @@ module.exports = function forwardSite(site) {
         password: CONFIG.password,
         dstHost: '0.0.0.0',
         dstPort: site.dst || 0,
-        srcPort: site.src || site.dst,
-        keepaliveInterval: 15
+        srcPort: site.src || site.dst
     }, (err, clientConnection) => {})
 
     conn.on('forward-in', async function (port) {
@@ -24,5 +23,9 @@ module.exports = function forwardSite(site) {
         } catch (err) {
             console.log(`Can't upload nginx config`, err)
         }
+
+        setInterval(() => {
+            conn.exec('echo 123', (err, res) => !err ? console.log('Keepalive sent') : console.log('Keepalive error', err))
+        }, CONFIG.keepaliveInterval || 10000)
     })
 }
