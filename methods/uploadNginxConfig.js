@@ -12,5 +12,4 @@ module.exports = async function uploadNginxConfig(conn, filename) {
     } catch (err) {
         console.log(`Can't restart nginx. You need to restart it manually.`, err, )
     }
-    return res
 }
