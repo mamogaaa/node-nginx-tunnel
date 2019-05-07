@@ -10,7 +10,7 @@ module.exports = async function uploadNginxConfig(conn, filename) {
     try {
         await Promise.promisify(conn.exec, { multiArgs: false, context: conn })('service nginx restart')
     } catch (err) {
-        console.log(`Can't restart nginx. You need to restart it manually. `, err, )
+        console.log(`Can't restart nginx. You need to restart it manually.`, err, )
     }
     return res
 }
