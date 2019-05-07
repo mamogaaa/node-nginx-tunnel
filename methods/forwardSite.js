@@ -25,7 +25,11 @@ module.exports = function forwardSite(site) {
         }
 
         setInterval(() => {
-            conn.exec('echo 123', (err, res) => !err ? console.log('Keepalive sent') : console.log('Keepalive error', err))
+            conn.exec('echo 123', (err, res) => {
+                if (process.env.NODE_ENV == 'debug') {
+                    !err ? console.log('Keepalive sent') : console.log('Keepalive error', err)
+                }
+            })
         }, CONFIG.keepaliveInterval || 10000)
     })
 }
